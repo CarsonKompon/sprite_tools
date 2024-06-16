@@ -1,11 +1,11 @@
 {
-  "Model": null,
+  "Model": "models/dev/plane.vmdl",
   "Description": "",
   "BlendMode": "Masked",
   "nodes": [
     {
       "_class": "TextureSampler",
-      "Image": null,
+      "Image": "images/sausage/sausage_run_01.png",
       "Sampler": {
         "Filter": "Point",
         "AddressU": "Clamp",
@@ -23,7 +23,7 @@
         "CreateInput": "CreateInputTexture2D"
       },
       "Identifier": "0",
-      "Position": "-96,160",
+      "Position": "-288,160",
       "Coords": {
         "Identifier": "9",
         "Output": "Result"
@@ -264,14 +264,56 @@
         "Output": "RGBA"
       },
       "B": {
-        "Identifier": "0",
+        "Identifier": "19",
         "Output": "Result"
       }
     },
     {
       "_class": "Tint",
       "Identifier": "17",
-      "Position": "-96,32"
+      "Position": "-80,-192"
+    },
+    {
+      "_class": "Float4",
+      "Value": "1,1,1,1",
+      "Name": "",
+      "IsAttribute": false,
+      "UI": {
+        "Type": "Color"
+      },
+      "Identifier": "18",
+      "Position": "-288,-32"
+    },
+    {
+      "_class": "Blend",
+      "Fraction": 1,
+      "BlendMode": "Add",
+      "Clamp": true,
+      "Identifier": "19",
+      "Position": "112,96",
+      "A": {
+        "Identifier": "0",
+        "Output": "Result"
+      },
+      "B": {
+        "Identifier": "18",
+        "Output": "Result"
+      },
+      "C": {
+        "Identifier": "20",
+        "Output": "Result"
+      }
+    },
+    {
+      "_class": "Float",
+      "Min": 0,
+      "Max": 1,
+      "Value": 0,
+      "Name": "Fill",
+      "IsAttribute": false,
+      "UI": {},
+      "Identifier": "20",
+      "Position": "-80,224"
     }
   ]
 }

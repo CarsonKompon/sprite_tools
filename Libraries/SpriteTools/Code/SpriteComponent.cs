@@ -224,6 +224,10 @@ public sealed class SpriteComponent : Component, Component.ExecuteInEditor
             }
         }
     }
+    public void Fill(float shouldFill = 1.0f )
+    {
+        SpriteMaterial.Set("g_flFill", shouldFill );
+	}
 
     internal void UpdateSceneObject()
     {

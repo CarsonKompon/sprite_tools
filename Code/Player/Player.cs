@@ -40,9 +40,21 @@ public sealed class Player : Component
 		Sprite.OnBroadcastEvent -= OnEvent;
     }
 
+	float FillAmount = 0f;
+
 	protected override void OnUpdate()
 	{
+		if (Input.Down("jump"))
+		{
+			FillAmount = 1;
+			Sprite.Tint = Color.Green;
+		}
+		else
+		{
+			FillAmount = FillAmount.LerpTo(0,RealTime.Delta * 10.2f);
+		}
 
+		Sprite.Fill(FillAmount);
 	}
 
     protected override void OnFixedUpdate()

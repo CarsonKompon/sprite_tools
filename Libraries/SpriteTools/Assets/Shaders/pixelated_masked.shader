@@ -79,6 +79,7 @@ PS
 	float g_flHueshift < UiGroup( "Hue,2/,0/0" ); Default1( 0 ); Range1( 0, 1 ); >;
 	float2 g_vTiling < UiGroup( "Texture Coordinates,5/,0/0" ); Default2( 1,1 ); Range2( 0,0, 1,1 ); >;
 	float2 g_vOffset < UiGroup( "Texture Coordinates,5/,0/0" ); Default2( 0,0 ); Range2( 0,0, 1,1 ); >;
+	float g_flFill < UiGroup( ",0/,0/0" ); Default1( 0 ); Range1( 0, 1 ); >;
 	float g_flSmoothStepMin < UiGroup( "Translucent,1/,0/1" ); Default1( 0 ); Range1( 0, 1 ); >;
 	float g_flSmoothStepMax < UiGroup( "Translucent,1/,0/2" ); Default1( 1 ); Range1( 0, 1 ); >;
 		
@@ -120,21 +121,24 @@ PS
 		float2 l_4 = g_vOffset;
 		float2 l_5 = TileAndOffsetUv( l_2, l_3, l_4 );
 		float4 l_6 = Tex2DS( g_tTexture, g_sSampler0, l_5 );
-		float4 l_7 = l_1 * l_6;
-		float3 l_8 = RGB2HSV( l_7 );
-		float l_9 = l_8.x;
-		float l_10 = l_0 + l_9;
-		float l_11 = l_8.y;
-		float l_12 = l_8.z;
-		float4 l_13 = float4( l_10, l_11, l_12, 0 );
-		float3 l_14 = HSV2RGB( l_13 );
-		float l_15 = g_flSmoothStepMin;
-		float l_16 = g_flSmoothStepMax;
-		float l_17 = smoothstep( l_15, l_16, l_6.a );
-		float l_18 = saturate( l_17 );
+		float4 l_7 = float4( 1, 1, 1, 1 );
+		float l_8 = g_flFill;
+		float4 l_9 = saturate( lerp( l_6, min( 1.0f, (l_6) + (l_7) ), l_8 ) );
+		float4 l_10 = l_1 * l_9;
+		float3 l_11 = RGB2HSV( l_10 );
+		float l_12 = l_11.x;
+		float l_13 = l_0 + l_12;
+		float l_14 = l_11.y;
+		float l_15 = l_11.z;
+		float4 l_16 = float4( l_13, l_14, l_15, 0 );
+		float3 l_17 = HSV2RGB( l_16 );
+		float l_18 = g_flSmoothStepMin;
+		float l_19 = g_flSmoothStepMax;
+		float l_20 = smoothstep( l_18, l_19, l_6.a );
+		float l_21 = saturate( l_20 );
 		
-		m.Albedo = l_14;
-		m.Opacity = l_18;
+		m.Albedo = l_17;
+		m.Opacity = l_21;
 		m.Roughness = 1;
 		m.Metalness = 0;
 		m.AmbientOcclusion = 1;
